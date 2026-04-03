@@ -1,0 +1,251 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/03/2026  12:06:48  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\RUANJIAN\KEIL5 MDK\51\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj TO .\Objects\main PRINT (.\Listings\
+>> main.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\main.obj (MAIN)
+  D:\RUANJIAN\KEIL5 MDK\51\C51\LIB\C51S.LIB (?C_INIT)
+  D:\RUANJIAN\KEIL5 MDK\51\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  .\Objects\main (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         _DATA_GROUP_
+            DATA    000EH     0003H     UNIT         ?DT?MAIN
+            IDATA   0011H     0042H     UNIT         ?ID?MAIN
+            IDATA   0053H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     07F2H                  *** GAP ***
+            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
+            CODE    088CH     0055H     UNIT         ?C?LIB_CODE
+            CODE    08E1H     003BH     UNIT         ?PR?MAIN?MAIN
+            CODE    091CH     002BH     UNIT         ?PR?_TASK_LOAD?MAIN
+            CODE    0947H     0022H     UNIT         ?PR?INTER?MAIN
+            CODE    0969H     001CH     UNIT         ?PR?TASK1?MAIN
+            CODE    0985H     001AH     UNIT         ?PR?TASK_SWITCH?MAIN
+            CODE    099FH     0012H     UNIT         ?PR?START_0?MAIN
+            CODE    09B1H     000FH     UNIT         ?PR?TASK0?MAIN
+            CODE    09C0H     0005H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\main (?C_STARTUP)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                  0008H    0006H
+  +--> ?PR?TASK0?MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/03/2026  12:06:48  PAGE 2
+
+
+  +--> ?PR?_TASK_LOAD?MAIN
+  +--> ?PR?TASK1?MAIN
+  +--> ?PR?START_0?MAIN
+
+?PR?TASK0?MAIN                 -----    -----
+  +--> ?PR?TASK_SWITCH?MAIN
+
+?PR?TASK1?MAIN                 -----    -----
+  +--> ?PR?TASK_SWITCH?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\main (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0800H         SEGMENT       ?C_C51STARTUP
+  I:0053H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0803H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0800H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0800H         LINE#         133
+  C:0802H         LINE#         134
+  C:0803H         LINE#         135
+  C:0804H         LINE#         136
+  C:0806H         LINE#         185
+  C:0809H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00A8H.7       PUBLIC        EA
+  B:0080H.0       PUBLIC        P0_0
+  B:0080H.1       PUBLIC        P0_1
+  D:0081H         PUBLIC        SP
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/03/2026  12:06:48  PAGE 3
+
+
+  C:0947H         PUBLIC        inter
+  C:08E1H         PUBLIC        main
+  C:0985H         PUBLIC        task_switch
+  I:0011H         PUBLIC        task_stack
+  D:0089H         PUBLIC        TMOD
+  C:091CH         PUBLIC        _task_load
+  C:099FH         PUBLIC        start_0
+  B:00A8H.1       PUBLIC        ET0
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:000EH         PUBLIC        task_id
+  D:000FH         PUBLIC        time_num
+  C:09B1H         PUBLIC        task0
+  C:0969H         PUBLIC        task1
+  I:0051H         PUBLIC        task_sp
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        w
+  D:000AH         SYMBOL        j
+  D:000CH         SYMBOL        k
+  -------         ENDDO         
+  C:08E1H         LINE#         21
+  C:08E1H         LINE#         22
+  C:08E1H         LINE#         23
+  C:08E6H         LINE#         24
+  C:08EEH         LINE#         25
+  C:08F7H         LINE#         26
+  C:08F9H         LINE#         27
+  C:08FBH         LINE#         28
+  C:08FEH         LINE#         29
+  C:0901H         LINE#         30
+  C:0907H         LINE#         31
+  C:090FH         LINE#         32
+  C:0916H         LINE#         33
+  C:091BH         LINE#         35
+  -------         ENDPROC       MAIN
+  -------         PROC          START_0
+  C:099FH         LINE#         37
+  C:099FH         LINE#         38
+  C:099FH         LINE#         39
+  C:09A2H         LINE#         40
+  C:09A5H         LINE#         41
+  C:09A8H         LINE#         42
+  C:09AAH         LINE#         43
+  C:09ACH         LINE#         44
+  C:09AEH         LINE#         45
+  C:09B0H         LINE#         47
+  -------         ENDPROC       START_0
+  -------         PROC          INTER
+  C:0947H         LINE#         49
+  C:0949H         LINE#         51
+  C:094BH         LINE#         52
+  C:094EH         LINE#         53
+  C:0951H         LINE#         54
+  C:0959H         LINE#         55
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/03/2026  12:06:48  PAGE 4
+
+
+  C:095FH         LINE#         56
+  C:095FH         LINE#         57
+  C:0964H         LINE#         58
+  C:0964H         LINE#         59
+  C:0966H         LINE#         60
+  -------         ENDPROC       INTER
+  -------         PROC          TASK_SWITCH
+  C:0985H         LINE#         79
+  C:0985H         LINE#         80
+  C:0985H         LINE#         81
+  C:098CH         LINE#         83
+  C:098EH         LINE#         84
+  C:0993H         LINE#         85
+  C:0993H         LINE#         86
+  C:0996H         LINE#         87
+  C:0996H         LINE#         88
+  C:099EH         LINE#         89
+  -------         ENDPROC       TASK_SWITCH
+  -------         PROC          TASK0
+  C:09B1H         LINE#         91
+  C:09B1H         LINE#         92
+  C:09B1H         LINE#         93
+  C:09B1H         LINE#         94
+  C:09B1H         LINE#         95
+  C:09B9H         LINE#         96
+  C:09B9H         LINE#         97
+  C:09BBH         LINE#         98
+  C:09BBH         LINE#         100
+  C:09BEH         LINE#         101
+  -------         ENDPROC       TASK0
+  -------         PROC          TASK1
+  C:0969H         LINE#         104
+  C:0969H         LINE#         105
+  C:0969H         LINE#         107
+  C:0969H         LINE#         108
+  C:0969H         LINE#         109
+  C:097EH         LINE#         110
+  C:097EH         LINE#         111
+  C:0980H         LINE#         112
+  C:0980H         LINE#         113
+  C:0983H         LINE#         114
+  -------         ENDPROC       TASK1
+  -------         PROC          _TASK_LOAD
+  D:0002H         SYMBOL        fn
+  D:0005H         SYMBOL        tid
+  C:091CH         LINE#         117
+  C:0920H         LINE#         118
+  C:0920H         LINE#         119
+  C:092CH         LINE#         120
+  C:0938H         LINE#         121
+  C:0946H         LINE#         122
+  -------         ENDPROC       _TASK_LOAD
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        ?C?UIDIV
+  C:088CH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/03/2026  12:06:48  PAGE 5
+
+
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00F5H BYTE (11%) *
+******************************************************************************
+
+Program Size: data=84.0 xdata=0 code=459
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

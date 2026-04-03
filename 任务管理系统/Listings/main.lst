@@ -1,0 +1,154 @@
+C51 COMPILER V9.54   MAIN                                                                  04/03/2026 12:06:48 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Ruanjian\Keil5 MDK\51\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include <INTRINS.H>
+   3          
+   4          
+   5          #define MAX_TASKS 2 //函数数量
+   6          #define MAX_TASK_DEP 32//储存数组的大小
+   7          
+   8          
+   9          unsigned int time_num = 0;//时间计数器
+  10          unsigned char idata task_sp[MAX_TASKS];//函数地址数组的首字节的地址
+  11          unsigned char idata task_stack[MAX_TASKS][MAX_TASK_DEP];//储存函数的地址
+  12          unsigned char task_id;//表示目前进行的任务
+  13          
+  14          void Delay1000ms(void);   
+  15          void task_switch(void);
+  16          void task0(void);
+  17          void task1(void);
+  18          void task_load(unsigned int fn,unsigned char tid);
+  19          void start_0();//初始化定时器0
+  20          
+  21          void main()
+  22          {
+  23   1        int w,j,k = 0;
+  24   1        task_load(task0,0);//加载任务
+  25   1        task_load(task1,1);
+  26   1        P0_1=0;//初始化led
+  27   1        P0_0=0;
+  28   1        start_0();//初始化定时器
+  29   1        task_id = 0;
+  30   1        w = &task0;
+*** WARNING C260 IN LINE 30 OF main.c: '=': pointer truncation
+  31   1        j = task_stack[0][0];
+  32   1        k = task_stack[0][1];
+  33   1        SP=task_sp[0];
+  34   1        
+  35   1      }
+  36          //配置定时器，10ms
+  37          void start_0()
+  38          {
+  39   1        TMOD = 0x01;//设置定时器模式
+  40   1        TL0 = 55536 % 256;//高位
+  41   1        TH0 = 55536 / 256;//低位
+  42   1        TF0 = 0;//清除中断标志位
+  43   1        EA = 1;//中断总开关
+  44   1        ET0 = 1;//定时器0中断开关
+  45   1        TR0 = 1;//打开定时器
+  46   1      
+  47   1      }
+  48          // 中断函数
+  49          void inter(void) interrupt 1
+  50          {
+  51   1        EA = 0;//关闭中断总开关
+  52   1        TL0 = 55536 % 256;//高位
+  53   1        TH0 = 55536 / 256;//低位
+C51 COMPILER V9.54   MAIN                                                                  04/03/2026 12:06:48 PAGE 2   
+
+  54   1        time_num++;
+  55   1        if (time_num == 101)//清零
+  56   1          {
+  57   2            time_num = 1;
+  58   2          }
+  59   1        EA = 1;//中断总开关
+  60   1      }
+  61          /*
+  62          void Delay1000ms()    
+  63          {
+  64            unsigned char i, j, k;
+  65          
+  66            _nop_();
+  67            i = 8;
+  68            j = 154;
+  69            k = 122;
+  70            do
+  71            {
+  72              do
+  73              {
+  74                while (--k);
+  75              } while (--j);
+  76            } while (--i);
+  77          }
+  78          */
+  79          void task_switch()
+  80          {
+  81   1        task_sp[task_id]=SP;//不知有何作用,删去也并无大碍
+  82   1        
+  83   1        task_id=task_id+1;//转换下一函数
+  84   1        if(task_id==MAX_TASKS)//若为2，则转换为0 也可以task %=2;
+  85   1        {
+  86   2          task_id=0;
+  87   2        }
+  88   1        SP=task_sp[task_id];//将栈指针转换至下一函数头地址
+  89   1      }
+  90          
+  91          void task0()
+  92          {
+  93   1        while(1)
+  94   1        {
+  95   2          if (time_num == 100)//100个中断为1s
+  96   2            {
+  97   3              P0_0=~P0_0;//调转电平，实现亮灭
+  98   3            }
+  99   2          
+ 100   2          task_switch();//转换至下一函数
+ 101   2        }
+ 102   1      }
+ 103          
+ 104          void task1()
+ 105          {
+ 106   1        
+ 107   1        while(1)
+ 108   1        {
+ 109   2          if (time_num % 50 == 0 && time_num != 0)//0.5s转换一次
+ 110   2            {
+ 111   3              P0_1=~P0_1;
+ 112   3            }
+ 113   2          task_switch();
+ 114   2        }
+ 115   1      }
+C51 COMPILER V9.54   MAIN                                                                  04/03/2026 12:06:48 PAGE 3   
+
+ 116            
+ 117          void task_load(unsigned int fn,unsigned char tid)
+ 118          {
+ 119   1        task_stack[tid][1] = (unsigned char)(fn >> 8); //高八位的地址
+ 120   1        task_stack[tid][0] = (unsigned char)fn;  //低八位的地址
+ 121   1        task_sp[tid] = (unsigned char)&task_stack[tid][1];//储存函数地址的首地址  sp压栈时要自增1
+ 122   1      }
+ 123          
+ 124          
+ 125          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    223    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3       6
+   IDATA SIZE       =     66    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
